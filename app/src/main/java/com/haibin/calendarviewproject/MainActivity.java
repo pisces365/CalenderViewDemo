@@ -17,21 +17,10 @@ import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.TrunkBranchAnnals;
 import com.haibin.calendarviewproject.base.activity.BaseActivity;
-import com.haibin.calendarviewproject.colorful.ColorfulActivity;
-import com.haibin.calendarviewproject.custom.CustomActivity;
-import com.haibin.calendarviewproject.full.FullActivity;
-import com.haibin.calendarviewproject.index.IndexActivity;
-import com.haibin.calendarviewproject.meizu.MeiZuActivity;
-import com.haibin.calendarviewproject.meizu.MeiZuMonthView;
-import com.haibin.calendarviewproject.meizu.MeizuWeekView;
+//import com.haibin.calendarviewproject.custom.CustomActivity;
+//import com.haibin.calendarviewproject.full.FullActivity;
+//import com.haibin.calendarviewproject.index.IndexActivity;
 import com.haibin.calendarviewproject.mix.MixActivity;
-import com.haibin.calendarviewproject.multi.MultiActivity;
-import com.haibin.calendarviewproject.pager.ViewPagerActivity;
-import com.haibin.calendarviewproject.progress.ProgressActivity;
-import com.haibin.calendarviewproject.range.RangeActivity;
-import com.haibin.calendarviewproject.simple.SimpleActivity;
-import com.haibin.calendarviewproject.single.SingleActivity;
-import com.haibin.calendarviewproject.solay.SolarActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -264,18 +253,15 @@ public class MainActivity extends BaseActivity implements
         //可自行测试性能差距
         //mCalendarView.setSchemeDate(schemes);
 
-        findViewById(R.id.ll_flyme).setOnClickListener(this);
-        findViewById(R.id.ll_simple).setOnClickListener(this);
-        findViewById(R.id.ll_range).setOnClickListener(this);
         findViewById(R.id.ll_mix).setOnClickListener(this);
-        findViewById(R.id.ll_colorful).setOnClickListener(this);
-        findViewById(R.id.ll_index).setOnClickListener(this);
-        findViewById(R.id.ll_tab).setOnClickListener(this);
-        findViewById(R.id.ll_single).setOnClickListener(this);
-        findViewById(R.id.ll_multi).setOnClickListener(this);
-        findViewById(R.id.ll_solar_system).setOnClickListener(this);
-        findViewById(R.id.ll_progress).setOnClickListener(this);
-        findViewById(R.id.ll_custom).setOnClickListener(this);
+//        findViewById(R.id.ll_colorful).setOnClickListener(this);
+//        findViewById(R.id.ll_index).setOnClickListener(this);
+//        findViewById(R.id.ll_tab).setOnClickListener(this);
+//        findViewById(R.id.ll_single).setOnClickListener(this);
+//        findViewById(R.id.ll_multi).setOnClickListener(this);
+//        findViewById(R.id.ll_solar_system).setOnClickListener(this);
+//        findViewById(R.id.ll_progress).setOnClickListener(this);
+//        findViewById(R.id.ll_custom).setOnClickListener(this);
         findViewById(R.id.ll_full).setOnClickListener(this);
     }
 
@@ -298,11 +284,6 @@ public class MainActivity extends BaseActivity implements
                     mCalendarView.setSelectSingleMode();
                 }
                 break;
-            case 4:
-                mCalendarView.setWeekView(MeizuWeekView.class);
-                mCalendarView.setMonthView(MeiZuMonthView.class);
-                mCalendarView.setWeekBar(EnglishWeekBar.class);
-                break;
             case 5:
                 mCalendarView.setAllMode();
                 break;
@@ -318,48 +299,9 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_flyme:
-                MeiZuActivity.show(this);
-                //CalendarActivity.show(this);
-
-                break;
-            case R.id.ll_custom:
-                CustomActivity.show(this);
-                break;
             case R.id.ll_mix:
                 MixActivity.show(this);
                 break;
-            case R.id.ll_full:
-                FullActivity.show(this);
-                break;
-            case R.id.ll_range:
-                RangeActivity.show(this);
-                break;
-            case R.id.ll_simple:
-                SimpleActivity.show(this);
-                break;
-            case R.id.ll_colorful:
-                ColorfulActivity.show(this);
-                break;
-            case R.id.ll_index:
-                IndexActivity.show(this);
-                break;
-            case R.id.ll_tab:
-                ViewPagerActivity.show(this);
-                break;
-            case R.id.ll_single:
-                SingleActivity.show(this);
-                break;
-            case R.id.ll_multi:
-                MultiActivity.show(this);
-                break;
-            case R.id.ll_solar_system:
-                SolarActivity.show(this);
-                break;
-            case R.id.ll_progress:
-                ProgressActivity.show(this);
-                break;
-
         }
     }
 

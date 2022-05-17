@@ -11,10 +11,9 @@ import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarviewproject.R;
 import com.haibin.calendarviewproject.base.activity.BaseActivity;
-import com.haibin.calendarviewproject.colorful.ColorfulActivity;
-import com.haibin.calendarviewproject.custom.CustomActivity;
-import com.haibin.calendarviewproject.index.IndexActivity;
-import com.haibin.calendarviewproject.simple.SimpleActivity;
+//import com.haibin.calendarviewproject.custom.CustomActivity;
+//import com.haibin.calendarviewproject.index.IndexActivity;
+//import com.haibin.calendarviewproject.simple.SimpleActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -132,18 +131,9 @@ public class FullActivity extends BaseActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_flyme:
-                CustomActivity.show(this);
-                break;
-            case R.id.ll_simple:
-                SimpleActivity.show(this);
-                break;
-            case R.id.ll_colorful:
-                ColorfulActivity.show(this);
-                break;
-            case R.id.ll_index:
-                IndexActivity.show(this);
-                break;
+//            case R.id.ll_flyme:
+//                CustomActivity.show(this);
+//                break;
         }
     }
 

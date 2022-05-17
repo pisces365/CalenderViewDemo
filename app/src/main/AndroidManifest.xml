@@ -13,29 +13,17 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".MainActivity">
+<!--        <activity android:name=".MainActivity">-->
+        <activity android:name=".mix.MixActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".meizu.MeiZuActivity" />
-        <activity android:name=".multi.MultiActivity" />
-        <activity android:name=".index.IndexActivity" />
-        <activity android:name=".simple.SimpleActivity" />
-        <activity android:name=".range.RangeActivity" />
-        <activity android:name=".colorful.ColorfulActivity" />
-        <activity android:name=".solay.SolarActivity" />
-        <activity android:name=".single.SingleActivity" />
-        <activity android:name=".progress.ProgressActivity" />
-        <activity android:name=".custom.CustomActivity" />
-        <activity android:name=".mix.MixActivity" />
-        <activity android:name=".pager.ViewPagerActivity" />
-        <activity android:name=".full.FullActivity" />
         <activity android:name=".TestActivity" />
         <activity android:name=".CalendarActivity" />
+<!--        <activity android:name=".mix.MixActivity" />-->
     </application>
 
 </manifest>

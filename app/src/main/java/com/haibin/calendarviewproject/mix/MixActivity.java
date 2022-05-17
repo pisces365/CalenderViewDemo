@@ -2,6 +2,7 @@ package com.haibin.calendarviewproject.mix;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.haibin.calendarview.Calendar;
@@ -16,20 +18,20 @@ import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarviewproject.Article;
 import com.haibin.calendarviewproject.ArticleAdapter;
+import com.haibin.calendarviewproject.MainActivity;
 import com.haibin.calendarviewproject.R;
 import com.haibin.calendarviewproject.base.activity.BaseActivity;
-import com.haibin.calendarviewproject.colorful.ColorfulActivity;
 import com.haibin.calendarviewproject.group.GroupItemDecoration;
 import com.haibin.calendarviewproject.group.GroupRecyclerView;
-import com.haibin.calendarviewproject.index.IndexActivity;
-import com.haibin.calendarviewproject.simple.SimpleActivity;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MixActivity extends BaseActivity implements
         CalendarView.OnCalendarSelectListener,
         CalendarView.OnYearChangeListener,
+        DialogInterface.OnClickListener,
         View.OnClickListener {
 
     TextView mTextMonthDay;
@@ -46,6 +48,12 @@ public class MixActivity extends BaseActivity implements
     private int mYear;
     CalendarLayout mCalendarLayout;
     GroupRecyclerView mRecyclerView;
+
+
+    // TODO: new line here
+    private AlertDialog mMoreDialog;
+    private AlertDialog mFuncDialog;
+
 
     public static void show(Context context) {
         context.startActivity(new Intent(context, MixActivity.class));
@@ -104,6 +112,79 @@ public class MixActivity extends BaseActivity implements
         mTextMonthDay.setText(mCalendarView.getCurMonth() + "月" + mCalendarView.getCurDay() + "日");
         mTextLunar.setText("今日");
         mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
+
+        // TODO: finish this button listener
+        findViewById(R.id.iv_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mMoreDialog == null) {
+                    mMoreDialog = new AlertDialog.Builder(MixActivity.this)
+                            .setTitle(R.string.list_dialog_title)
+                            .setItems(R.array.list_dialog_items, MixActivity.this)
+                            .create();
+                }
+                mMoreDialog.show();
+            }
+        });
+
+        final DialogInterface.OnClickListener listener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                mCalendarLayout.expand();
+                                break;
+                            case 1:
+                                boolean result = mCalendarLayout.shrink();
+                                Log.e("shrink", " --  " + result);
+                                break;
+                            case 2:
+                                mCalendarView.scrollToPre(false);
+                                break;
+                            case 3:
+                                mCalendarView.scrollToNext(false);
+                                break;
+                            case 4:
+                                mCalendarView.scrollToCurrent(true);
+//                                mCalendarView.scrollToCalendar(2018, 12, 30);
+                                break;
+                            case 5:
+                                mCalendarView.setRange(2018, 7, 1, 2019, 4, 28);
+//                                mCalendarView.setRange(mCalendarView.getCurYear(), mCalendarView.getCurMonth(), 6,
+//                                        mCalendarView.getCurYear(), mCalendarView.getCurMonth(), 23);
+                                break;
+                            case 6:
+                                Log.e("scheme", "  " + mCalendarView.getSelectedCalendar().getScheme() + "  --  "
+                                        + mCalendarView.getSelectedCalendar().isCurrentDay());
+                                List<Calendar> weekCalendars = mCalendarView.getCurrentWeekCalendars();
+                                for (Calendar calendar : weekCalendars) {
+                                    Log.e("onWeekChange", calendar.toString() + "  --  " + calendar.getScheme());
+                                }
+                                new AlertDialog.Builder(MixActivity.this)
+                                        .setMessage(String.format("Calendar Range: \n%s —— %s",
+                                                mCalendarView.getMinRangeCalendar(),
+                                                mCalendarView.getMaxRangeCalendar()))
+                                        .show();
+                                break;
+                        }
+                    }
+                };
+
+
+        findViewById(R.id.iv_func).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mFuncDialog == null) {
+                    mFuncDialog = new AlertDialog.Builder(MixActivity.this)
+                            .setTitle(R.string.func_dialog_title)
+                            .setItems(R.array.func_dialog_items, listener)
+                            .create();
+                }
+                mFuncDialog.show();
+            }
+        });
+
     }
 
     @Override
@@ -144,20 +225,6 @@ public class MixActivity extends BaseActivity implements
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll_flyme:
-                MixActivity.show(this);
-                break;
-            case R.id.ll_simple:
-                SimpleActivity.show(this);
-                break;
-            case R.id.ll_colorful:
-                ColorfulActivity.show(this);
-                break;
-            case R.id.ll_index:
-                IndexActivity.show(this);
-                break;
-        }
     }
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
@@ -200,4 +267,33 @@ public class MixActivity extends BaseActivity implements
     }
 
 
+    public void onClick(DialogInterface dialog, int which) {
+        switch (which) {
+            case 0:
+                mCalendarView.setWeekStarWithSun();
+                break;
+            case 1:
+                mCalendarView.setWeekStarWithMon();
+                break;
+            case 2:
+                mCalendarView.setWeekStarWithSat();
+                break;
+            case 3:
+                if (mCalendarView.isSingleSelectMode()) {
+                    mCalendarView.setSelectDefaultMode();
+                } else {
+                    mCalendarView.setSelectSingleMode();
+                }
+                break;
+            case 5:
+                mCalendarView.setAllMode();
+                break;
+            case 6:
+                mCalendarView.setOnlyCurrentMode();
+                break;
+            case 7:
+                mCalendarView.setFixMode();
+                break;
+        }
+    }
 }
